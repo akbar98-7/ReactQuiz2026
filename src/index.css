@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@tailwind utilities;
+
+/* Improved Feedback Styles */
+.quiz-option.correct {
+  @apply border-emerald-500 bg-emerald-500/5;
+}
+
+.quiz-option.correct p {
+  @apply text-emerald-400;
+}
+
+.quiz-option.correct span:first-child {
+  @apply bg-emerald-500 text-white;
+}
+
+.quiz-option.wrong {
+  @apply border-rose-500 bg-rose-500/5;
+}
+
+.quiz-option.wrong p {
+  @apply text-rose-400;
+}
+
+.quiz-option.wrong span:first-child {
+  @apply bg-rose-500 text-white;
+}
+
+/* Optional: Subtle pulse animation for the correct answer if you missed it */
+@keyframes softPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.quiz-option.correct {
+  animation: softPulse 0.5s ease-in-out;
+}
