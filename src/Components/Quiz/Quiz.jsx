@@ -78,7 +78,7 @@ const Quiz = () => {
                 Time Left
               </p>
               <div className="text-2xl font-mono font-bold text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.4)]">
-                <Timer lock={lock} next={next} />
+                <Timer key={index} lock={lock} next={next} setLock={setLock} />
               </div>
             </div>
           )}
@@ -132,13 +132,17 @@ const Quiz = () => {
                   <span className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-700 text-slate-400 font-bold mr-4 group-hover:bg-slate-600 group-hover:text-white transition-colors">
                     {String.fromCharCode(65 + i)}
                   </span>
-                  <p className="text-lg text-slate-200 font-medium">{opt}</p>
+                  <p className="pointer-events-none text-lg text-slate-200 font-medium">
+                    {opt}
+                  </p>
                 </div>
               ))}
             </div>
 
             <button
               onClick={next}
+              // reset timer when question changes
+
               disabled={!lock}
               className={`w-full mt-10 py-5 rounded-2xl font-black text-lg uppercase tracking-widest transition-all duration-300 ${
                 lock
