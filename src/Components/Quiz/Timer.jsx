@@ -1,28 +1,31 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const Timer = ({ lock, next }) => {
-  const [timeLeft, setTimeLeft] = useState(15); // 15 seconds per question
+const Timer = ({ lock, setLock, next }) => {
+  const [timeLeft, setTimeLeft] = useState(15);
 
   useEffect(() => {
-    if (lock) return; // Stop timer if user answered
+    // If the user already answered (lock is true), stop the countdown
+    if (lock) return;
+
+    // If time runs out
     if (timeLeft === 0) {
-      // Auto-advance or lock question when time hits 0
+      setLock(true); // This locks the options in the parent Quiz component
       return;
     }
 
     const timer = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
+      setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, lock]);
+  }, [timeLeft, lock, setLock]);
 
-  // Reset timer when question changes (you can pass index as a prop too)
   return (
     <div className="timer">
       Time Left:{" "}
-      <span style={{ color: timeLeft < 5 ? "red" : "white" }}>{timeLeft}s</span>
+      <span style={{ color: timeLeft < 5 ? "red" : "inherit" }}>
+        {timeLeft}s
+      </span>
     </div>
   );
 };
